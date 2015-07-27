@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="login.css">
 <title>Ecommerce</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
 	<%
 		String profile_msg = (String) request.getAttribute("profile_msg");
 		if (profile_msg != null) {
-			out.print(profile_msg);
+		%><div class="loginfail" ><%	out.print(profile_msg); %></div><% 
 		}
 		String login_msg = (String) request.getAttribute("login_msg");
 		if (login_msg != null) {
@@ -22,8 +23,8 @@
 		}
 	%>
 	<br />
-	<form action="/login" method="post">
-		Email:<input type="text" name="email" /><br />
+	<form action="/ecommerce/login" method="post">
+		UserName:<input type="text" name="username" /><br />
 		<br /> Password:<input type="password" name="password" /><br />
 		<br /> <input type="submit" value="login" />
 	</form>

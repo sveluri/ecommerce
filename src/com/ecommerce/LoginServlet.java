@@ -1,11 +1,16 @@
 package com.ecommerce;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ecommerce.dao.CustomerDAO;
+import com.ecommerce.dao.entity.Customer;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,9 +30,27 @@ public class LoginServlet extends HttpServlet {
 	public void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("login_msg", "Invalid Login");
-		response.sendRedirect("index.jsp");
-		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+
+		CustomerDAO customerDao = new CustomerDAO();
+
+		Customer customer = customerDao.getCustomer(username, password);
+
+		if (customer != null) {
+			RequestDispatcher dd = request
+					.getRequestDispatcher("/home.jsp");
+
+			dd.forward(request, response);
+		} else {
+			request.setAttribute("profile_msg", "Login failed !!");
+			
+			RequestDispatcher dd = request
+					.getRequestDispatcher("/index.jsp");
+
+			dd.forward(request, response);
+		}
+
 	}
 
 	/**
