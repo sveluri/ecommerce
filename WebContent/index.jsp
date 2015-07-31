@@ -29,6 +29,7 @@
 		<br /> <input type="submit" value="login" />
 	</form>
 
+<a href="/ecommerce/user-registration.jsp"> Register</a>
 
 </body>
 </html>

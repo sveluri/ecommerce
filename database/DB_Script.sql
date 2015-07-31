@@ -4,11 +4,12 @@ create database ecommerce;
 -- -----------------------------------------------------
 -- Table `ecommerce`.`Customer`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `ecommerce`.`Customer` (
+CREATE  TABLE IF NOT EXISTS `ecommerce`.`User` (
   `ID` INT auto_increment NOT NULL ,
   `username` VARCHAR(20) NOT NULL DEFAULT '',
   `password` VARCHAR(20) NOT NULL DEFAULT '',
   `email` VARCHAR(100) NOT NULL DEFAULT '',
+  `role` VARCHAR(100) NOT NULL DEFAULT 'CUSTOMER',
   `birthdate` DATETIME NULL,
   `hobbies` VARCHAR(500) NOT NULL DEFAULT '',
   `favorite_music` VARCHAR(500) NOT NULL DEFAULT '',
@@ -26,28 +27,40 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ecommerce`.`Order` (
   `ID` INT auto_increment  NOT NULL ,
-  `customer_id` INT NULL ,
+  `user_id` INT NULL ,
   PRIMARY KEY (`ID`) ,
-  INDEX `fk_Order_1_idx` (`customer_id` ASC) ,
+  INDEX `fk_Order_1_idx` (`user_id` ASC) ,
   CONSTRAINT `fk_Order_1`
-    FOREIGN KEY (`customer_id` )
-    REFERENCES `ecommerce`.`Customer` (`ID` )
+    FOREIGN KEY (`user_id` )
+    REFERENCES `ecommerce`.`User` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `ecommerce`.`Company`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ecommerce`.`Company` (
+  `ID` INT auto_increment NOT NULL ,
+  `name` VARCHAR(45) NOT NULL ,
+  `description` TEXT NULL,
+  PRIMARY KEY (`ID`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `ecommerce`.`Product`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ecommerce`.`Product` (
   `ID` INT auto_increment NOT NULL ,
+  `Company_ID` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `description` TEXT NULL ,
   `availableQuantity` INT NOT NULL ,
-  PRIMARY KEY (`ID`) )
+  PRIMARY KEY (`ID`) ,
+  CONSTRAINT `fk_CompanyProduct_1`
+    FOREIGN KEY (`Company_ID` )
+    REFERENCES `ecommerce`.`Company` (`ID` ) )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `ecommerce`.`OrderItem`

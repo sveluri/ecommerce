@@ -1,13 +1,12 @@
 package com.ecommerce.dao.entity;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
-public class Customer {
+public class User {
 
 	@Column(name = "ID")
 	private int id;
@@ -17,6 +16,8 @@ public class Customer {
 	private String password;
 	@Column(name = "email")
 	private String email;
+	@Column(name = "role")
+	private String role; 
 	@Column(name = "birthdate")
 	private Timestamp birthdate;
 	@Column(name = "hobbies")
@@ -35,6 +36,7 @@ public class Customer {
 	private String educational_status;
 	@Column(name = "created")
 	private Timestamp created;
+	
 	public int getId() {
 		return id;
 	}
@@ -113,4 +115,11 @@ public class Customer {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
 }

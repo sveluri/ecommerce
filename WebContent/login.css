@@ -4,3 +4,15 @@
 	color: red;
 	font-style: weight;
 }
+
+.welcomeText {
+	color: Blue;
+	font-style: weight;
+	text-align: left;
+}
+
+.logout {
+	color: Blue;
+	font-style: weight;
+	text-align: right;
+}
