@@ -1,0 +1,97 @@
+@CHARSET "ISO-8859-1";
+
+/* table starts here */
+#css3table {
+	width: 600px;
+	/* color: #FFFFFF; */
+	padding: 0px;
+	display: table;
+	border: 1px solid black;
+	
+}
+
+#row {
+	display: table-row;
+}
+
+#left {
+	width: 150px;
+	padding: 0px;
+	/* background: #BF721B; */
+	border: 1px solid black;
+	display: table-cell;
+	/* #background: url("none") top left repeat-y; */
+}
+
+#right {
+	width: 150px;
+	padding: 0px;
+	/* background: #446E2C; */
+	display: table-cell;
+	border: 1px solid black;
+	/* background: #446E2C url("none") top right repeat-y; */
+}
+
+#middle {
+	padding: 0px;
+	width: 280px;
+	/* background: #6417FF; */
+	border: 1px solid black;
+	display: table-cell;
+	
+}
+/* IE ONLY */
+* html #css3table {
+	/* background: yellow url("none") top left repeat-y; */
+}
+
+* html #row {
+	background: url("none") top right repeat-y;
+}
+
+* html #left {
+	float: right;
+}
+
+* html #right {
+	float: left;
+}
+
+* html #middle {
+	float: center;
+}
+
+* html .cleaner {
+	display: middle;
+}
+/* table ends here */
+
+/* optional div height ,width, color */
+width
+:
+400px;
+
+
+height
+:
+200px;
+
+
+/* background-color
+:
+#ffffff
+; */
+
+
+font-size
+:
+28px;
+
+
+/* color
+:
+#ffffff
+; */
+
+
+}

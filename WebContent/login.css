@@ -15,4 +15,9 @@
 	color: Blue;
 	font-style: weight;
 	text-align: right;
+	background-color: lime;
+}
+
+li-align{
+	text-align: right;
 }

@@ -6,9 +6,9 @@ create database ecommerce;
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `ecommerce`.`User` (
   `ID` INT auto_increment NOT NULL ,
-  `username` VARCHAR(20) NOT NULL DEFAULT '',
+  `username` VARCHAR(20) UNIQUE NOT NULL DEFAULT '',
   `password` VARCHAR(20) NOT NULL DEFAULT '',
-  `email` VARCHAR(100) NOT NULL DEFAULT '',
+  `email` VARCHAR(100) UNIQUE NOT NULL DEFAULT '',
   `role` VARCHAR(100) NOT NULL DEFAULT 'CUSTOMER',
   `birthdate` DATETIME NULL,
   `hobbies` VARCHAR(500) NOT NULL DEFAULT '',
@@ -55,7 +55,10 @@ CREATE  TABLE IF NOT EXISTS `ecommerce`.`Product` (
   `Company_ID` INT NOT NULL ,
   `name` VARCHAR(45) NOT NULL ,
   `description` TEXT NULL ,
-  `availableQuantity` INT NOT NULL ,
+  `product_type` TEXT NULL ,
+  `available_quantity` INT NOT NULL ,
+  `price` INT NOT NULL ,
+  `priceType` TEXT NOT NULL ,
   PRIMARY KEY (`ID`) ,
   CONSTRAINT `fk_CompanyProduct_1`
     FOREIGN KEY (`Company_ID` )
@@ -83,6 +86,17 @@ CREATE  TABLE IF NOT EXISTS `ecommerce`.`OrderItem` (
     REFERENCES `ecommerce`.`Product` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `ecommerce`.`cart`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `ecommerce`.`Cart` (
+  `ID` INT auto_increment NOT NULL ,
+  `username` TEXT NOT NULL ,
+  `name` TEXT NOT NULL ,
+  PRIMARY KEY (`ID`))
+ 
 ENGINE = InnoDB;
 
 USE `ecommerce` ;

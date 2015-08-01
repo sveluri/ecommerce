@@ -12,16 +12,13 @@ public class UserDAO {
 
 	public User getUser(String username, String password) {
 
-		User User = null;
+		User user = null;
 
-		ConnectionUtils connectionUtils = new ConnectionUtils();
-		Connection connection = connectionUtils.getConnection();
-
-		if (connection == null) {
-			return User;
-		}
-		ResultSet resultSet = null;
+		Connection connection;
 		try {
+			connection = DBCPDataSourceFactory.getDataSource().getConnection();
+
+			ResultSet resultSet = null;
 			ResultSetMapper<User> resultSetMapper = new ResultSetMapper<User>();
 			PreparedStatement statement = connection
 					.prepareStatement(Queries.GET_USER);
@@ -34,7 +31,7 @@ public class UserDAO {
 					resultSet, User.class);
 
 			if (pojoList != null && pojoList.size() == 1) {
-				User = pojoList.get(0);
+				user = pojoList.get(0);
 			} else {
 				System.out
 						.println("ResultSet is empty. Please check if database table is empty");
@@ -44,18 +41,18 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 
-		return User;
+		return user;
 	}
 
 	public User createUser(User user) {
 
-		User User = null;
+		User newUser = null;
 
 		ConnectionUtils connectionUtils = new ConnectionUtils();
 		Connection connection = connectionUtils.getConnection();
 
 		if (connection == null) {
-			return User;
+			return newUser;
 		}
 		try {
 			PreparedStatement statement = connection
