@@ -7,6 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ecommerce</title>
 <link rel="stylesheet" type="text/css" href="search-response.css">
+<link rel="stylesheet" type="text/css" href="table.css">
+<link rel="stylesheet" type="text/css" href="registration.css">
+	<link rel="stylesheet" type="text/css" href="header.css">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
@@ -21,49 +25,73 @@
 			});
 		});
 		$("#productsTable").on("click", "td[name='cartActionAdd']", function() {
-			var temp = $("td[name='productNametd']").text();
+			var temp = $(this).closest("tr").find('.rowProductName').text();
 
-			alert(temp);
+			var addChange = "add";
+			$.post("cart", {
+				productName : temp, change : addChange
+			}, function(responseText) {
+				if(responseText)  {
+					$("#responseText").text("Added to cart successfully ");
+				}
+				
+			});
+
+		});
+		$("#productsTable").on("click", "td[name='remove']", function() {
+			var temp = $(this).closest("tr").find('.rowProductName').text();
+
+			var add = true;
+			$.post("cart", {
+				productName : temp, change : remove
+			}, function(responseText) {
+				if(responseText)  {
+					$("#responseText").text("Removed from cart successfully ");
+				}
+				
+			});
+
 		});
 
 	});
 </script>
 
 </head>
-<body>
-
-	<br />
-	<br />
-	<br />
-	<div class="CSSTableGenerator">
-		<table id="productsTable">
-			<tr>
-
-				<td>Product Name - Click on the product for further information
-				</td>
-				<td>Type</td>
-				<td>Price</td>
-				<td>Available Quantity</td>
-				<td></td>
-			</tr>
-			<c:forEach items="${searchresults}" var="product">
-
+<body id="body">
+<div id="responseText"></div>
+	<div id="divbody">
+		<br /> <br /> <br />
+		<div id="responseText"></div>
+		<div class="CSSTableGenerator">
+			<table id="productsTable">
 				<tr>
-					<td name="productNametd"><c:out value="${product.name}" /></td>
-					<td><c:out value="${product.productType}" /></td>
-					<td><c:out value="${product.price}" /> <c:out
-							value="${product.priceType}" /></td>
-					<td><c:out value="${product.availableQuantity}" /></td>
-					<td name="cartActionAdd"><button id="addToCart">Add to cart</button>
-							<button name="remove">Remove</button></td>
+
+					<td>Product Name - Click on the product for further
+						information</td>
+					<td>Type</td>
+					<td>Price</td>
+					<td>Available Quantity</td>
+					<td></td>
 				</tr>
+				<c:forEach items="${searchresults}" var="product">
 
-			</c:forEach>
-		</table>
+					<tr>
+						<td class="rowProductName" name="productNametd"><c:out
+								value="${product.name}" /></td>
+						<td><c:out value="${product.productType}" /></td>
+						<td><c:out value="${product.price}" /> <c:out
+								value="${product.priceType}" /></td>
+						<td><c:out value="${product.availableQuantity}" /></td>
+						<td name="cartActionAdd"><button id="addToCart"
+								value="<c:out value="${product.name}" />">Add to cart</button></td>
+					</tr>
+
+				</c:forEach>
+			</table>
+		</div>
+
+		<br />
+		<div id="product"></div>
 	</div>
-
-	<br />
-	<div id="product"></div>
-
 </body>
 </html>

@@ -22,7 +22,7 @@ public class CartDAO {
 		}
 		try {
 			PreparedStatement statement = connection
-					.prepareStatement(Queries.CREATE_USER);
+					.prepareStatement(Queries.INSERT_INTO_CART_BY_USERNAME);
 
 			statement.setString(1, cart.getUsername());
 			statement.setString(2, cart.getName());
@@ -55,7 +55,7 @@ public class CartDAO {
 			List<Cart> pojoList = resultSetMapper.mapRersultSetToObject(
 					resultSet, Cart.class);
 
-			if (pojoList != null && pojoList.size() == 1) {
+			if (pojoList != null) {
 				carts = pojoList;
 			} else {
 				System.out
@@ -67,5 +67,31 @@ public class CartDAO {
 		}
 
 		return carts;
+	}
+
+	public List<Cart> removeFromCart(Cart cart) {
+
+		List<Cart> newCart = null;
+
+		ConnectionUtils connectionUtils = new ConnectionUtils();
+		Connection connection = connectionUtils.getConnection();
+
+		if (connection == null) {
+			return newCart;
+		}
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement(Queries.REMOVE_FROM_CART);
+
+			statement.setString(1, cart.getUsername());
+			statement.setString(2, cart.getName());
+
+			statement.execute();
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return getCart(cart.getUsername());
 	}
 }

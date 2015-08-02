@@ -25,16 +25,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ecommerce`.`Order`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `ecommerce`.`Order` (
+CREATE  TABLE IF NOT EXISTS `ecommerce`.`ecommorder` (
   `ID` INT auto_increment  NOT NULL ,
-  `user_id` INT NULL ,
-  PRIMARY KEY (`ID`) ,
-  INDEX `fk_Order_1_idx` (`user_id` ASC) ,
-  CONSTRAINT `fk_Order_1`
-    FOREIGN KEY (`user_id` )
-    REFERENCES `ecommerce`.`User` (`ID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `username` TEXT NULL ,
+  `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`))
+  
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -71,19 +67,14 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `ecommerce`.`OrderItem` (
   `ID` INT auto_increment  NOT NULL ,
   `order_ID` INT NOT NULL ,
-  `product_ID` INT NOT NULL ,
+  `productName` TEXT NOT NULL ,
   `quantity` INT NOT NULL ,
+  `price` INT NOT NULL ,
   PRIMARY KEY (`ID`) ,
   INDEX `fk_OrderItem_1_idx` (`order_ID` ASC) ,
-  INDEX `fk_OrderItem_2_idx` (`product_ID` ASC) ,
   CONSTRAINT `fk_OrderItem_1`
     FOREIGN KEY (`order_ID` )
-    REFERENCES `ecommerce`.`Order` (`ID` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_OrderItem_2`
-    FOREIGN KEY (`product_ID` )
-    REFERENCES `ecommerce`.`Product` (`ID` )
+    REFERENCES `ecommerce`.`ecommorder` (`ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
